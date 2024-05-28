@@ -35,7 +35,7 @@
 
 // }
 
-//Test this method by calling adventurer.roll() a few times.
+// Test this method by calling adventurer.roll() a few times.
 
 //console.log(adventurer.roll())
 
@@ -46,7 +46,11 @@ class Character {
       this.name = name;
       this.health = 100;
       this.inventory = [];
-    }
+    };
+    static Health()
+    {
+      Max_health =100;
+    };
   }
 
   const robin = new Character("Robin");
@@ -59,3 +63,64 @@ robin.companion.companion.inventory = ["small hat", "sunglasses"];
 
 
 //Part 3: Class Features
+
+
+class Adventurer extends Character {
+    constructor (name, role) {
+      super(name);
+      // Adventurers have specialized roles.
+      this.role = role;
+      // Every adventurer starts with a bed and 50 gold coins.
+      this.inventory.push("bedroll", "50 gold coins");
+    }
+    // Adventurers have the ability to scout ahead of them.
+    scout () {
+      console.log(`${this.name} is scouting ahead...`);
+      super.roll();
+    }
+    static Roles(){["Fighter", "Healer" , "Wizard"]};
+
+    duel(){
+
+
+    }
+
+    }
+  
+
+  class Companion extends Character{
+    constructor(name,type,inventory){
+        this.name="Frank";
+        this.type ="Flea";
+        this.inventory=["small hat", "sunglasses"];
+
+
+    };
+
+  }
+
+  //Part 5: Gather your Party
+
+  class AdventurerFactory{
+    constructor (role){
+        this.role=role;
+        this.Adventurers =[];
+   }
+   generate (name){
+    const newAdventurer =new Adventurer(name,this.role);
+    this.Adventurers.push(newAdventurer);
+   }
+     findByIndex(index){
+        return this.Adventurers[index];
+     }
+     findByName (name){
+        return this.Adventurers.find((a) => a.name === name);
+     }
+  }
+
+  const healers = new AdventurerFactory("Healer");
+  const robin = healers.generate("Robin");
+
+  //Part 6: Developing Skills
+
+  
